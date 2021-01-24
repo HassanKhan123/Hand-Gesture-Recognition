@@ -5,6 +5,7 @@ import * as fp from 'fingerpose';
 import Webcam from 'react-webcam';
 
 import { drawHand } from './utils/utils';
+import { loveYouGesture } from './utils/customDetection';
 import victory from './victory.png';
 import thumbs_up from './thumbs_up.png';
 
@@ -57,11 +58,12 @@ function App() {
         const GE = new fp.GestureEstimator([
           fp.Gestures.VictoryGesture,
           fp.Gestures.ThumbsUpGesture,
+          loveYouGesture,
         ]);
 
         const gesture = await GE.estimate(hand[0].landmarks, 4);
         if (gesture.gestures !== undefined && gesture.gestures.length > 0) {
-          // console.log(gesture.gestures);
+          console.log(gesture.gestures);
 
           const confidence = gesture.gestures.map(
             (prediction) => prediction.confidence
